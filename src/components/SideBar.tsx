@@ -1,3 +1,4 @@
+import { memo, useMemo } from 'react';
 import { Button } from './Button';
 interface SideBarProps {
   selectedGenreId: number;
@@ -7,6 +8,8 @@ interface SideBarProps {
 
 export function SideBar({selectedGenreId, handleGenreIdChange: handleClickButton, genres }: SideBarProps) {
   // Complete aqui
+
+
   return (
     <nav className="sidebar">
       <span>Watch<p>Me</p></span>
@@ -18,7 +21,7 @@ export function SideBar({selectedGenreId, handleGenreIdChange: handleClickButton
             title={genre.title}
             iconName={genre.name}
             onClick={() => handleClickButton(genre.id)}
-            selected={selectedGenreId === genre.id}
+            selected={genre.id === selectedGenreId}
           />
         ))}
       </div>
@@ -26,3 +29,7 @@ export function SideBar({selectedGenreId, handleGenreIdChange: handleClickButton
     </nav>
   );
 }
+
+// export const SideBar = memo(SideBarComponent, (prevProps, nextProps) => {
+//   return prevProps.genres === nextProps.genres && prevProps.handleGenreIdChange === nextProps.handleGenreIdChange
+// })
