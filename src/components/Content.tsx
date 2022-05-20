@@ -22,7 +22,7 @@ export function Content({ selectedGenreId, selectedGenreName }: ContentProps) {
   // Complete aqui
 
   const [formattedMovies, setFormattedMovies] = useState<ReactNode[]>([])
-
+  const [isLoading, setIsLoading] = useState(false)
 
   useEffect(() => {
     api.get<MovieProps[]>(`movies/?Genre_id=${selectedGenreId}`).then(response => {
@@ -34,16 +34,23 @@ export function Content({ selectedGenreId, selectedGenreName }: ContentProps) {
     });
   }, [selectedGenreId]);
 
+  useEffect(() => {
+    setIsLoading(!isLoading)
+  }, [selectedGenreId, formattedMovies] )
+
   return (
     <>
       <header>
-          <span className="category">Categoria:<span> {selectedGenreName}</span></span>
-        </header>
+        <span className="category">Categoria:<span> {selectedGenreName}</span></span>
+      </header> 
       <main>
         {
+          !isLoading ?
           <div className="movies-list">
             {formattedMovies}
           </div>
+          :
+          <h1>Loading...</h1>
         }
       </main>
     </>
